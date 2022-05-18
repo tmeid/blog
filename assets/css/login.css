@@ -1,0 +1,40 @@
+.login-form{
+    width: 400px;
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 20px 10px;
+}
+.login-form label{
+    display: block;
+}
+.login-form h3{
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+.login-form input{
+    margin-bottom: 10px;
+}
+.login-form button{
+    padding: 10px 20px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+}
+.register #username{
+    margin-bottom: 0;
+}
+.username-rule{
+    font-size: 0.8rem;
+    color: rgb(43, 177, 43);
+    margin-bottom: 10px;
+}
+.msg-error{
+    margin-bottom: 20px;
+    background-color: rgb(247, 186, 186);
+    border: 2px solid #9b1616;
+    padding: 5px;
+    color: #9b1616;
+    border-radius: 4px;
+}
+
