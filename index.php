@@ -1,3 +1,8 @@
+<?php
+    require 'app/database/db.php';
+
+    $tags = selectAll('tag');
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,18 +16,7 @@
         <title>tmeid's Blog</title>
     </head>
     <body>
-        <header>
-            <div class="container">
-                <nav>
-                    <h1><a href="index.php"><img src="assets/imgs/tmeid-logo.jpg" alt="tmeid-logo">tmeid</a></h1>
-                    <ul>
-                        <li><a href="index.php">Trang chủ</a></li>
-                        <li><a href="about-me.html">Tác giả</a></li>
-                    </ul>
-                </nav>
-                
-            </div>
-        </header>
+        <?php include 'app/blade/header.html' ?>
         <main>
             <div class="container">
                 <div class="wrap">
@@ -71,16 +65,14 @@
                         </article>
                     </div>
                     <div class="right-side">
-                        <form action="#">
+                        <form action="#" class="search">
                             <input type="text" placeholder="Tìm kiếm...">
                         </form>
                         <div>
-                            <h4>Tags</h4>
-                            <a href="#">#tag1</a>
-                            <a href="#">#tag2</a>
-                            <a href="#">#tag3</a>
-                            <a href="#">#tag3</a>
-                            <a href="#">#tag4</a>
+                            <h4 class="tag-header">Tags</h4>
+                            <?php foreach($tags as $tag): ?>
+                                <a href="#" class="tag"><?php echo $tag['tag_name'] ?></a>
+                            <?php endforeach ?>
                         </div>
                     </div>
                 </div>
@@ -95,6 +87,7 @@
                 </ul>
             </div>
         </main>
-        <?php include 'app/blade/footer.php' ?>
+        <?php include 'app/blade/footer.html' ?>
+        <script src="assets/js/script.js"></script>
     </body>
 </html>

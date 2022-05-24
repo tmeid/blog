@@ -13,8 +13,13 @@
 </head>
 <body>
     <?php
-        include 'app/blade/header.php';
+        include 'app/blade/header.html';
+        include 'path.php';
         require 'app/controllers/users.php';
+
+        if(isset($_SESSION['canAccess'])){
+            header("location: dashboard");
+        }
     ?>
     <main>
         <div class="container">
@@ -42,7 +47,7 @@
         </div>
     </main>
     <?php
-        include 'app/blade/footer.php';
+        include 'app/blade/footer.html';
     ?>
 </body>
 </html>

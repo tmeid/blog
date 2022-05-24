@@ -1,7 +1,7 @@
 <?php
+    include 'path.php';
     require 'app/controllers/users.php';
     require 'app/database/admin.php';
-    session_start();
     
 ?>
 <!DOCTYPE html>
@@ -15,13 +15,14 @@
     <link rel="manifest" href="assets/favicon_io/site.webmanifest">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
     <link rel="stylesheet" href="assets/css/login.css" type="text/css">
-    <title>Đăng nhập | tmeid's Blog</title>
+    <title>Tạo thêm admin| tmeid's Blog</title>
 </head>
 <body>
     <?php
-        include 'app/blade/header.php'; 
+        include 'app/blade/header.html'; 
         if(!isset($_SESSION['canAccess']) || $_SESSION['username'] !== OWNER)
             header("location: index.php");
+        
     ?>
     <main>
         <div class="container">
@@ -62,7 +63,7 @@
         </div>
     </main>
     <?php
-        include 'app/blade/footer.php';
+        include 'app/blade/footer.html';
     ?>
 </body>
 </html>

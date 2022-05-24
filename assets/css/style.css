@@ -10,6 +10,10 @@ a{
 li{
     list-style: none;
 }
+button,
+input[type="submit"]{
+    cursor: pointer;
+}
 .container{
     max-width: 1100px;
     margin: 0 auto;
@@ -46,6 +50,15 @@ header img{
     border-radius: 50%;
     margin-right: 5px;
 }
+/* tag */
+.tag{
+    color: rgb(26, 93, 156);
+}
+.tag-header{
+    border-bottom: 3px solid #000;
+    margin-bottom: 5px;
+    padding: 5px 0;
+}
 
 /* main  */
 main{
@@ -59,7 +72,7 @@ h2 a{
     display: flex;
 }
 .right-side{
-    min-width: 220px;
+    min-width: 200px;
 }
 
 /* article  */
@@ -89,11 +102,12 @@ article div p:first-of-type{
 }
 
 /* right side  */
-form{
+.search{
     width: 100%;
     margin-bottom: 20px;
 }
-form input{
+.search input,
+.login-form input{
     padding: 5px;
     width: 100%;
 }
@@ -250,12 +264,6 @@ footer ul li:nth-child(3) a{
 }
 
 /* manage tags */
-.create-btn{
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #56e05d;
-    border-radius: 3px;
-}
 .title-manage{
     font-size: 150%;
     text-align: center;
@@ -280,5 +288,69 @@ td, th {
   
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+.form-tag input:first-of-type{
+    display: block;
+    padding: 10px;
+    width: 100%;
+}
+.form-tag span{
+    color: #ff0000;
+}
+.btn{
+    display: block;
+    padding: 10px 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.msg {
+    color: #ff0000;
+}
+/* .input-tag{
+    position: relative;
+}
+*/
+.input-tag form{
+    /* position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%; */
+    display: none;
+} 
+.input-tag form input,
+.input-tag form button{
+    display: inline-block;
+    padding: 5px;
+}
+.delete-btn{
+    border: 0;
+    background: 0;
+    color: #ff0000;
+}
+
+
+/* form create post  */
+.create-post input[type="text"],
+.create-post input[type="file"],
+.create-post textarea{
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+.label-category{
+    display: block;
+}
+.btn-create{
+    padding: 10px;
+    background-color: #359b35;
+    display: inline-block;
+    color: #fff;
+    margin-bottom: 10px;
+}
+h3{
+    font-size: 150%;
+    text-align: center;
 }
   
