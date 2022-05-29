@@ -85,7 +85,7 @@ function create($table, $data){
     }
     $stm = executeQuery($sql, $data);
     $id = $stm->insert_id;
-    // $id is used in selectOne function to display a user infor (test purpose)
+    // $id is used in selectOne function to display a user infor 
     return $id;
 }
 
@@ -137,4 +137,17 @@ function delete($table, $id){
 // $id = delete('users', 2);
 // echo $id;
 // print_r(selectAll('users', $condition));
-?>
+
+function joinTables($table1, $table2, $table3, $id1, $id2a, $id2b, $id3, $key, $id){
+    $sql = "SELECT $table3.$key
+            FROM $table1
+            JOIN $table2
+                ON $table1.$id1 = $table2.$id2a
+            JOIN $table3
+                ON $table2.$id2b = $table3.$id3
+            WHERE $table1.$id1 = ?";
+    $stm = executeQuery($sql, ['id' => $id]);
+    $records =  $stm->get_result()->fetch_all(MYSQLI_ASSOC);
+    return $records;
+
+}

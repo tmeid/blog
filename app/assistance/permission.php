@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (!isset($_SESSION['canAccess'])) {
-        header("location: ../../login.php");
+        echo("<script>location.href = '../../login.php';</script>");
     }
 
 ?>

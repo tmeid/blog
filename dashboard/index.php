@@ -1,8 +1,11 @@
 <?php
-session_start();
-include_once '../path.php';
-require ROOT_PATH .'/app/database/admin.php';
-require ROOT_PATH .'/app/controllers/tags.php';
+    session_start();
+    if (!isset($_SESSION['canAccess'])) {
+        header("location: ../login.php");
+    }
+    include_once '../path.php';
+    require ROOT_PATH . '/app/database/admin.php';
+    require ROOT_PATH . '/app/controllers/tags.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,13 +33,6 @@ require ROOT_PATH .'/app/controllers/tags.php';
         </nav>
     </header>
     <main>
-        <?php
-        if (!isset($_SESSION['canAccess'])) {
-            header("location: ../login.php");
-        }
-
-        ?>
-
         <div class="dashboard">
             <nav class="manage">
                 <ul>

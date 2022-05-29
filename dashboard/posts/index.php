@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if (!isset($_SESSION['canAccess'])) {
+        echo("<script>location.href = '../../login.php';</script>");
+            // header("location: ../../login.php");
+    }
     require '../../path.php';
     require_once ROOT_PATH .'/app/database/admin.php';
     require_once ROOT_PATH .'/app/controllers/posts.php';
@@ -24,13 +28,6 @@
         <?php include ROOT_PATH .'/app/blade/header_dashboard.php' ?>
     </header>
     <main>
-        <?php
-        if (!isset($_SESSION['canAccess'])) {
-            header("location: ../../login.php");
-        }
-
-        ?>
-
         <div class="dashboard">
             <?php include '../../app/blade/nav_dashboard.php' ?>
             <section class="dashboard-data">
@@ -41,28 +38,15 @@
                         <tr>
                             <th>STT</th>
                             <th>Tên</th>
-                            <th>Xuất bản</th>
-                            <th colspan="2">Tác vụ</th>
+                            <th colspan="3">Tác vụ</th>
                         </tr>
 
                         <?php foreach ($posts as $i => $post) : ?>
                             <tr>
                                 <td><?php echo $i + 1 ?></td>
-                                <td class="input-tag">
-                                    <?php echo $post[TITLE_PROPERTY] ?>
-                                    <form action="posts.php" method="POST">
-                                        <input type="text" name="edit-tag" class="edit-btn" value="<?php echo $post[TITLE_PROPERTY] ?>">
-                                        <input type="hidden" name="tag-id" value="<?php echo $post['id'] ?>">
-                                        <input type="submit" name="edited-tag-btn" value="Oke">
-                                        <button name="cancel-edit-btn" type="button" class="cancel-edit">&#128473;</button>
-                                    </form>
-                                </td>
-                                <td>
-                                    <form action="posts.php" method="POST">
-                                        <input type="checkbox" name="authorized" id="isAuthorized" <?php echo $post[PUBLISHED_PROPERTY] ? 'checked' : '' ?>>
-                                    </form>
-                                </td>
-                                <td class="edit"><a href="#">Sửa</a></td>
+                                <td class="input-tag"><?php echo $post[TITLE_PROPERTY] ?></td>
+                                <td><a href="#"><?php echo isset($post[PUBLISHED_PROPERTY]) ? 'thu hồi' : 'xuất bản' ?></a> </td>
+                                <td class="edit"><a href="edit.php?id=<?php echo $post['id'] ?>">Sửa</a></td>
                                 <td class="delete">
                                     <form action="posts.php" method="POST">
                                         <input type="hidden" value="<?php echo $post['id'] ?>" name="tag-id">

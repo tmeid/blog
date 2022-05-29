@@ -1,13 +1,14 @@
 <?php
-
-use function PHPSTORM_META\type;
-
-session_start();
-require '../../path.php';
-require_once ROOT_PATH . '/app/database/admin.php';
-require_once ROOT_PATH . '/app/controllers/posts.php';
-require_once ROOT_PATH . '/app/controllers/categories.php';
-require_once ROOT_PATH . '/app/controllers/tags.php';
+    session_start();
+    if (!isset($_SESSION['canAccess'])) {
+        echo("<script>location.href = '../../login.php';</script>");
+            // header("location: ../../login.php");
+    }
+    require '../../path.php';
+    require_once ROOT_PATH . '/app/database/admin.php';
+    require_once ROOT_PATH . '/app/controllers/posts.php';
+    require_once ROOT_PATH . '/app/controllers/categories.php';
+    require_once ROOT_PATH . '/app/controllers/tags.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,18 +42,11 @@ require_once ROOT_PATH . '/app/controllers/tags.php';
         <?php include ROOT_PATH . '/app/blade/header_dashboard.php' ?>
     </header>
     <main>
-        <?php
-        if (!isset($_SESSION['canAccess'])) {
-            header("location: ../../login.php");
-        }
-
-        ?>
-
         <div class="dashboard">
             <?php include '../../app/blade/nav_dashboard.php' ?>
             <section class="dashboard-data">
 
-                <form action="create.php" method="POST" class="create-post">
+                <form action="create.php" method="POST" class="create-post" enctype="multipart/form-data">
                     <h3>Thêm bài viết mới</h4>
 
                     <ul class="<?php echo count($errors) === 0 ? '' : 'msg-error' ?>">
@@ -64,7 +58,7 @@ require_once ROOT_PATH . '/app/controllers/tags.php';
                     </ul>  
                     <label for="titleName">Tên bài</label>
                     <input type="text" id="titleName" placeholder="Nhập tên" name="title"
-                            value="<?php echo $records[TITLE_PROPERTY] ?>"
+                            value="<?php echo $post[TITLE_PROPERTY] ?>"
                     >
                     <label for="img">Ảnh</label>
                     <input type="file" name="img" id="img">
@@ -72,10 +66,10 @@ require_once ROOT_PATH . '/app/controllers/tags.php';
                     <label for="category" class="label-category">Chuyên mục</label>
                     <select name="category_id" id="category">
                         <option value=""></option>
-                        <?php foreach ($categories as $category): echo $records[CATEGORY_ID_PROPERTY] ?>
+                        <?php foreach ($categories as $category): echo $post[CATEGORY_ID_PROPERTY] ?>
                             
                             <option value="<?php echo $category['id'] ?>"
-                            <?php echo $records[CATEGORY_ID_PROPERTY] == $category['id'] ? 'selected' : '' ?>>
+                            <?php echo $post[CATEGORY_ID_PROPERTY] == $category['id'] ? 'selected' : '' ?>>
                                 <?php echo $category[CATEGORY_NAME_PROPERTY] ?>
                             </option>
                         <?php endforeach ?>
@@ -84,14 +78,14 @@ require_once ROOT_PATH . '/app/controllers/tags.php';
                     <?php foreach ($tags as $tag) : ?>
                         <input type="checkbox" id="<?php echo $tag[TAG_NAME_PROPERTY] ?>" name="tag_id[]" 
                                 value="<?php echo $tag['id'] ?>"
-                                <?php if(isset($_POST['btn-create-post'])) 
+                                <?php if(!empty($_POST[TAG_ID_PROPERTY])) 
                                         echo in_array($tag['id'], $_POST[TAG_ID_PROPERTY]) ? 'checked' : '' 
                                 ?>
                         >
                         <label for="<?php echo $tag[TAG_NAME_PROPERTY] ?>"><?php echo $tag[TAG_NAME_PROPERTY] ?></label><br>
                     <?php endforeach; ?>
                     <label for="content">Nội dung</label>
-                    <textarea name="content" id="content" cols="30" rows="10" class="post-content"><?php echo $records[CONTENT_PROPERTY] ?></textarea>
+                    <textarea name="content" id="content" cols="30" rows="10" class="post-content"><?php echo $post[CONTENT_PROPERTY] ?></textarea>
                     <input type="submit" value="Thêm bài viết" class="btn" name="btn-create-post">
                 </form>
 

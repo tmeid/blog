@@ -1,9 +1,8 @@
-<?php
+<?php 
+    session_start();
     require_once ROOT_PATH .'/app/database/db.php';
     require_once ROOT_PATH .'/app/assistance/validation.php';
-
-    session_start();
-    
+   
     // defautl value
     $records = [
         'username' => '',
@@ -45,11 +44,12 @@
             $user = selectOne('user', ['username' => $_POST['username']]);
             // user exists, correct pass and has an admin role
             if(isset($user) && password_verify($_POST['password'], $user['password']) && $user['admin'] === 1){
-                session_start();
+                // session_start();
                 $_SESSION['canAccess'] = true;
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['admin-id'] =  $user['id'];
-                header("location: dashboard");
+                echo("<script>location.href = 'dashboard';</script>");
+                // header("location: dashboard");
             }else if(!isset($user)){
                 $errors['match-user'] = "Tài khoản không tồn tại";
             }else if($user['admin'] == 0){

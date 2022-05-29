@@ -6,7 +6,7 @@
             $errors[TITLE_PROPERTY] = 'Chưa nhập tiêu đề';
         }else{
             $titleExists = valueAlreadyExists(POST_TABLE, TITLE_PROPERTY, $_POST);
-            if($titleExists){
+            if($titleExists && isset($_POST['btn-create-post'])){
                 $errors[TITLE_PROPERTY] = 'Tiêu đề đã tồn tại';
             }
         }
