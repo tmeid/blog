@@ -47,7 +47,7 @@
                                 <td class="input-tag"><?php echo $post[TITLE_PROPERTY] ?></td>
                                 <td>
                                     <a href="edit.php?id=<?php echo $post['id'] .'&published=' .$post[PUBLISHED_PROPERTY]?>">
-                                        <?php echo isset($post[PUBLISHED_PROPERTY]) ? 'thu hồi' : 'xuất bản' ?>
+                                        <?php echo $post[PUBLISHED_PROPERTY] == 1 ?  'thu hồi' : 'xuất bản' ?>
                                     </a> 
                                 </td>
                                 <td class="edit"><a href="edit.php?id=<?php echo $post['id'] ?>">Sửa</a></td>

@@ -11,7 +11,7 @@
     if(isset($_POST['btn-submit'])){
         unset($_POST['btn-submit']);
 
-        if(valueAlreadyExists(TAG_TABLE, TAG_NAME_PROPERTY, $_POST)){
+        if(!empty(valueAlreadyExists(TAG_TABLE, TAG_NAME_PROPERTY, $_POST))){
             $msg = true;
         }else{          
             $tagId = create(TAG_TABLE, [TAG_NAME_PROPERTY => $_POST[TAG_NAME_PROPERTY]]);

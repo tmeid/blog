@@ -70,10 +70,9 @@
                     <label for="category" class="label-category">Chuyên mục</label>
                     <select name="category_id" id="category">
                         <option value=""></option>
-                        <?php foreach ($categories as $category): echo $post[CATEGORY_ID_PROPERTY] ?>
-                            
+                        <?php foreach ($categories as $category): ?>     
                             <option value="<?php echo $category['id'] ?>"
-                            <?php echo $post[CATEGORY_ID_PROPERTY] == $category['id'] ? 'selected' : '' ?>>
+                                <?php echo $post[CATEGORY_ID_PROPERTY] == $category['id'] ? 'selected' : '' ?>>
                                 <?php echo $category[CATEGORY_NAME_PROPERTY] ?>
                             </option>
                         <?php endforeach ?>

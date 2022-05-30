@@ -1,7 +1,12 @@
 <?php
-    include 'path.php';
-    require 'app/controllers/users.php';
-    require 'app/database/admin.php';
+    include '../../path.php';
+    require '../../app/controllers/users.php';
+    require '../../app/database/admin.php';
+    
+    if (!isset($_SESSION['canAccess']) || $_SESSION['username'] !== OWNER)
+        echo ("<script>location.href = '../../index.php';</script>");
+    // header("location: index.php");
+
 
 ?>
 <!DOCTYPE html>
@@ -10,23 +15,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon_io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicon_io/site.webmanifest">
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
-    <link rel="stylesheet" href="assets/css/login.css" type="text/css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="../../assets/favicon_io/site.webmanifest">
+    <link rel="stylesheet" href="../../assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="../../assets/css/login.css" type="text/css">
     <title>Tạo thêm admin| tmeid's Blog</title>
 </head>
 
 <body>
-    <?php
-    include 'app/blade/header.html';
-    if (!isset($_SESSION['canAccess']) || $_SESSION['username'] !== OWNER)
-        echo ("<script>location.href = 'index.php';</script>");
-    // header("location: index.php");
-
-    ?>
+    <header>
+        <?php  include ROOT_PATH . '/app/blade/header_dashboard.php'; ?>
+    </header>
     <main>
         <div class="container">
             <form action="register.php" method="post" class='login-form register'>
@@ -53,12 +54,11 @@
 
 
                 <button type="submit" name="register-btn">Đăng ký</button>
-                <p><a href="login.php">Đăng nhập</a></p>
             </form>
         </div>
     </main>
     <?php
-    include 'app/blade/footer.html';
+    include '../../app/blade/footer.html';
     ?>
 </body>
 
