@@ -6,8 +6,14 @@
             $errors[TITLE_PROPERTY] = 'Chưa nhập tiêu đề';
         }else{
             $titleExists = valueAlreadyExists(POST_TABLE, TITLE_PROPERTY, $_POST);
-            if($titleExists && isset($_POST['btn-create-post'])){
-                $errors[TITLE_PROPERTY] = 'Tiêu đề đã tồn tại';
+            // create: cant create post with existed title
+            // edit: cant rename a post with the same name as another already existed in db
+            if(!empty($titleExists)){
+                if(isset($_POST['btn-create-post'])
+                    || ($titleExists['id'] != $data['id'])){
+                        $errors[TITLE_PROPERTY] = 'Tiêu đề đã tồn tại';
+                }   
+                
             }
         }
 

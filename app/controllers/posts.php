@@ -84,8 +84,9 @@ function updateTag($table, $post_id, $new_tags){
     $old_tags_same_post = selectAll($table, [POST_ID_PROPERTY => $post_id]);
     
     $tag_id_record_id = [];
-    // $tag_id_record_id with format ['tag_id' => 'id_of_post_include_this_tag_id']
-    // need id_of_post_include_this_tag_id to delete 
+    // $tag_id_record_id with format ['tag_id' => 'id_of_record_contains_this_tag_id'] (tag_id: number)
+    // Ex: ["3" => "20"]
+    // need id_of_post_include_this_tag_id to delete action
     if(!empty($new_tags)){
         if(empty($old_tags_same_post)){
             foreach($new_tags as $i => $new_tag_id){
@@ -97,21 +98,22 @@ function updateTag($table, $post_id, $new_tags){
             foreach($old_tags_same_post as $post){
                 $tag_id_record_id[$post[TAG_ID_PROPERTY]] = $post['id'];
             }
+            // var_dump($tag_id_record_id);
       
-            foreach($tag_id_record_id as $tag_id => $record_id){
-                if(!in_array($tag_id, $new_tags)){
+            foreach($tag_id_record_id as $old_tag_id => $record_id){
+                if(!in_array($old_tag_id, $new_tags)){
                     delete(POST_TAG_TABLE, $record_id);
                 }else{
-                    $record_id_index_in_new_tags = array_search($record_id, $new_tags);
-                    unset($new_tags[$record_id_index_in_new_tags]);
-                }
-
-                if(!empty($new_tags)){
-                    foreach($new_tags as $i => $new_tag_id){
-                        $new_post_id = create(POST_TAG_TABLE, [POST_ID_PROPERTY => $post_id,
-                                                                TAG_ID_PROPERTY => $new_tag_id
-                                                                ]);
-                    }
+                    $record_index_in_new_tags = array_search($old_tag_id, $new_tags);
+                    unset($new_tags[$record_index_in_new_tags]);
+                }              
+            }
+            // var_dump($new_tags);
+            if(!empty($new_tags)){
+                foreach($new_tags as $i => $new_tag_id){
+                    $new_post_id = create(POST_TAG_TABLE, [POST_ID_PROPERTY => $post_id,
+                                                            TAG_ID_PROPERTY => $new_tag_id
+                                                            ]);
                 }
             }
         }
@@ -207,20 +209,17 @@ if (isset($_POST['btn-edit-post'])) {
 
         updateTag(POST_TAG_TABLE, $_POST['id'], $new_tags_id);
         unset($_POST['id'], $_POST['btn-edit-post'], $_POST[TAG_ID_PROPERTY]);
-        // var_dump($_POST);
         update(POST_TABLE, $id, $_POST);
   
-        // insert pairs of (post_id, tag_id) into post_tag table
-        // foreach ($tags_id as $i => $tag_id) {
-        // $new_post_tag_id = create(POST_TAG_TABLE, $id_post,
-        //     [POST_ID_PROPERTY => $id_post,
-        //         TAG_ID_PROPERTY => $tag_id
-        //     ]);
-        // }
-        
-        // echo ("<script>location.href = '../../dashboard/posts';</script>");
-        // header('location: ../../dashboard/posts');
+        echo ("<script>location.href = '../../dashboard/posts';</script>");
     } else {
         holdValues($post, $_POST, 'id');
     }
 }
+
+if(isset($_POST['btn-delete-post'])){
+    delete(POST_TABLE, $_POST['post-id']);
+    echo "<meta http-equiv='refresh' content='0'>";
+
+}
+?>

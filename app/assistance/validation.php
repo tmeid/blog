@@ -2,9 +2,7 @@
 
 function valueAlreadyExists($table, $property, $data){
     $existValue = selectOne($table, [$property => $data[$property]]);
-    if(isset($existValue))
-        return true;
-    return false;
+    return $existValue;
     
 }
 

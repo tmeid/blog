@@ -1,6 +1,5 @@
 <?php
     require 'app/database/db.php';
-
     $tags = selectAll('tag');
 ?>
 <!DOCTYPE html>
