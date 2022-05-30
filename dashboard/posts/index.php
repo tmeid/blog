@@ -45,12 +45,16 @@
                             <tr>
                                 <td><?php echo $i + 1 ?></td>
                                 <td class="input-tag"><?php echo $post[TITLE_PROPERTY] ?></td>
-                                <td><a href="#"><?php echo isset($post[PUBLISHED_PROPERTY]) ? 'thu hồi' : 'xuất bản' ?></a> </td>
+                                <td>
+                                    <a href="edit.php?id=<?php echo $post['id'] .'&published=' .$post[PUBLISHED_PROPERTY]?>">
+                                        <?php echo isset($post[PUBLISHED_PROPERTY]) ? 'thu hồi' : 'xuất bản' ?>
+                                    </a> 
+                                </td>
                                 <td class="edit"><a href="edit.php?id=<?php echo $post['id'] ?>">Sửa</a></td>
                                 <td class="delete">
-                                    <form action="posts.php" method="POST">
-                                        <input type="hidden" value="<?php echo $post['id'] ?>" name="tag-id">
-                                        <input type="submit" value="Xóa" name="delete-btn" class="delete-btn">
+                                    <form action="index.php" method="POST">
+                                        <input type="hidden" value="<?php echo $post['id'] ?>" name="post-id">
+                                        <input type="submit" value="Xóa" name="btn-delete-post" class="delete-btn">
                                     </form>
                                 </td>
                             </tr>

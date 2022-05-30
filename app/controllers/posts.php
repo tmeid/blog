@@ -18,11 +18,9 @@ define('POST_ID_PROPERTY', 'post_id');
 define('TAG_ID_PROPERTY', 'tag_id');
 // when user uploads img, move this to folder below 
 define('FOLDER_UPLOAD_IMG', '/assets/imgs/');
-// 
 
-$msg = '';
 // on edit post route, no need to get all post  
-if (!isset($_GET['id'])) {
+if (empty($_GET['id'])) {
     $posts = selectAll(POST_TABLE);
 }
 
@@ -71,6 +69,7 @@ function holdValues(&$a, $data, $id = '')
     $a[TITLE_PROPERTY] = $data[TITLE_PROPERTY];
     $a[CATEGORY_ID_PROPERTY] = $data[CATEGORY_ID_PROPERTY];
     $a[CONTENT_PROPERTY] = $data[CONTENT_PROPERTY];
+    $a[PUBLISHED_PROPERTY] = $data[PUBLISHED_PROPERTY];
 
     if (!empty($id)) {
         $a[$id] = $data[$id];
@@ -221,5 +220,14 @@ if(isset($_POST['btn-delete-post'])){
     delete(POST_TABLE, $_POST['post-id']);
     echo "<meta http-equiv='refresh' content='0'>";
 
+}
+
+// toggle published/unpublished post
+if(isset($_GET[PUBLISHED_PROPERTY]) && isset($_GET['id'])){
+    // post table: published property has 2 values: 0 or 1
+    // if current value = 1 ==> click ==> value will convert to 0 (1 - 1 = 0)
+    // if current value = 0 ==> click ==> value will convert to 1 (1 - 0 = 0)
+    update(POST_TABLE, $_GET['id'], [PUBLISHED_PROPERTY => 1 - $_GET[PUBLISHED_PROPERTY]]);
+    echo ("<script>location.href = '../../dashboard/posts';</script>");
 }
 ?>
