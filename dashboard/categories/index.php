@@ -34,16 +34,7 @@
     </header>
     <main>
         <div class="dashboard">
-            <nav class="manage">
-                <ul>
-                    <li><a href="../index.php">Quản lý tag</a></li>
-                    <li><a href="../categories">Quản lý chuyên mục</a></li>
-                    <li><a href="../posts">Quản lý bài viết</a></li>
-                    <?php if ($_SESSION['username'] === OWNER) : ?>
-                        <li><a href="../admins">Quản lý admin</a></li>
-                    <?php endif ?>
-                </ul>
-            </nav>
+            <?php include '../../app/blade/nav_dashboard.php' ?>
             <section class="dashboard-data">
                 <div>
                     <h4 class="title-manage">Quản lý chuyên mục</h4>

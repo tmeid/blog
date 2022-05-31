@@ -230,4 +230,3 @@ if(isset($_GET[PUBLISHED_PROPERTY]) && isset($_GET['id'])){
     update(POST_TABLE, $_GET['id'], [PUBLISHED_PROPERTY => 1 - $_GET[PUBLISHED_PROPERTY]]);
     echo ("<script>location.href = '../../dashboard/posts';</script>");
 }
-?>

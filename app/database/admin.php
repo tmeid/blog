@@ -1,3 +1,2 @@
 <?php
-define('OWNER', 'tmeid');
-?>
+define('OWNER', 1);

@@ -68,8 +68,7 @@
                         <option value=""></option>
                         <?php foreach ($categories as $category): echo $post[CATEGORY_ID_PROPERTY] ?>
                             
-                            <option value="<?php echo $category['id'] ?>"
-                            <?php echo $post[CATEGORY_ID_PROPERTY] == $category['id'] ? 'selected' : '' ?>>
+                            <option value="<?php echo $category['id'] ?>" <?php echo $post[CATEGORY_ID_PROPERTY] == $category['id'] ? 'selected' : '' ?>>
                                 <?php echo $category[CATEGORY_NAME_PROPERTY] ?>
                             </option>
                         <?php endforeach ?>

@@ -3,7 +3,7 @@
     require '../../app/controllers/users.php';
     require '../../app/database/admin.php';
     
-    if (!isset($_SESSION['canAccess']) || $_SESSION['username'] !== OWNER)
+    if (!isset($_SESSION['canAccess']) || $_SESSION['board'] !== OWNER)
         echo ("<script>location.href = '../../index.php';</script>");
     // header("location: index.php");
 
@@ -29,6 +29,7 @@
         <?php  include ROOT_PATH . '/app/blade/header_dashboard.php'; ?>
     </header>
     <main>
+        <?php include '../../app/blade/nav_dashboard.php' ?>
         <div class="container">
             <form action="register.php" method="post" class='login-form register'>
                 <h3>Đăng ký</h3>
@@ -39,17 +40,22 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </ul>
-                <label for="username"><b>Username</b></label>
+                <label for="username">Username</label>
                 <input type="text" placeholder="Nhập username" name="username" id="username" value="<?php echo $records['username'] ?>">
                 <p class="username-rule">username có độ dài >= 3, bắt đầu bằng chữ cái, không chứa khoảng trắng </p>
 
-                <label for="email"><b>Email</b></label>
+                <label for="email">Email</label>
                 <input type="mail" placeholder="Nhập email" name="email" id="email" value="<?php echo $records['email'] ?>">
-
-                <label for="password"><b>Mật khẩu</b></label>
+                
+                <label for="admin">Cấp quyền</label>
+                <select name="admin" id="admin">
+                    <option value="1">Tác giả</option>
+                    <option value="2">Mod</option>
+                </select>
+                <label for="password">Mật khẩu</label>
                 <input type="password" placeholder="Nhập mật khẩu" name="password" id="password" value="<?php echo $records['password'] ?>">
 
-                <label for="psw-repeat"><b>Nhập lại mật khẩu</b></label>
+                <label for="psw-repeat">Nhập lại mật khẩu</label>
                 <input type="password" placeholder="Nhập mật khẩu lại" name="psw-repeat" id="psw-repeat" value="<?php echo $records['psw-repeat'] ?>">
 
 
@@ -57,9 +63,6 @@
             </form>
         </div>
     </main>
-    <?php
-    include '../../app/blade/footer.html';
-    ?>
 </body>
 
 </html>

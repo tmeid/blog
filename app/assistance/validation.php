@@ -48,4 +48,3 @@ function validateLogin($data, &$errors){
         $errors['pass'] = 'Chưa nhập mật khẩu';
     }
 }
-?>
