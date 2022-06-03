@@ -1,0 +1,5 @@
+Options -MultiViews
+RewriteEngine On
+RewriteRule ^article/(.+).html$ dashboard/posts/post.php?id=$1 [QSA,L]
+RewriteRule index.html index.php
+ 

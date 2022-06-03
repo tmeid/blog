@@ -4,10 +4,12 @@ require_once ROOT_PATH . '/app/database/db.php';
 require_once ROOT_PATH . '/app/assistance/validation.php';
 require_once ROOT_PATH . '/app/controllers/tags.php';
 require_once ROOT_PATH . '/app/assistance/postValidation.php';
+require_once ROOT_PATH . '/app/assistance/slug.php';
 
 // tables' names, properties of those tables
 define('POST_TABLE', 'post');
 define('TITLE_PROPERTY', 'title');
+define('DESCRIPTION_PROPERTY', 'description');
 define('CONTENT_PROPERTY', 'content');
 define('PUBLISHED_PROPERTY', 'published');
 
@@ -16,6 +18,7 @@ define('CATEGORY_ID_PROPERTY', 'category_id');
 define('IMG_PROPERTY', 'img');
 define('POST_ID_PROPERTY', 'post_id');
 define('TAG_ID_PROPERTY', 'tag_id');
+define('SLUG', 'slug');
 // when user uploads img, move this to folder below 
 define('FOLDER_UPLOAD_IMG', '/assets/imgs/');
 
@@ -29,6 +32,7 @@ if (empty($_GET['id'])) {
 // user dont need to rewrite
 $post = [
     TITLE_PROPERTY => '',
+    DESCRIPTION_PROPERTY => '',
     IMG_PROPERTY => '',
     CATEGORY_ID_PROPERTY => '',
     TAG_ID_PROPERTY => [],
@@ -67,9 +71,11 @@ function uploadImg($img, &$errors, $data)
 function holdValues(&$a, $data, $id = '')
 {
     $a[TITLE_PROPERTY] = $data[TITLE_PROPERTY];
+    $a[DESCRIPTION_PROPERTY] = $data[DESCRIPTION_PROPERTY];
     $a[CATEGORY_ID_PROPERTY] = $data[CATEGORY_ID_PROPERTY];
     $a[CONTENT_PROPERTY] = $data[CONTENT_PROPERTY];
-    $a[PUBLISHED_PROPERTY] = $data[PUBLISHED_PROPERTY];
+    
+    // $a[PUBLISHED_PROPERTY] = $data[PUBLISHED_PROPERTY];
 
     if (!empty($id)) {
         $a[$id] = $data[$id];
@@ -131,6 +137,7 @@ function updateTag($table, $post_id, $new_tags){
 
 }
 
+// create a new post 
 if (isset($_POST['btn-create-post'])) {
     postValidation($_POST, $errors);
 
@@ -145,7 +152,11 @@ if (isset($_POST['btn-create-post'])) {
         $tags_id = $_POST[TAG_ID_PROPERTY];
 
         unset($_POST['btn-create-post'], $_POST[TAG_ID_PROPERTY]);
+
         $_POST[PUBLISHED_PROPERTY] = 1;
+        // create a slug
+        $_POST[SLUG] = post_slug($_POST[TITLE_PROPERTY]);
+
         $new_post_id = create(POST_TABLE, $_POST);
 
         // insert pairs of (post_id, tag_id) into post_tag table
@@ -162,7 +173,7 @@ if (isset($_POST['btn-create-post'])) {
     }
 }
 
-
+// edit post (dashboard/posts/index.php, dashboard/posts/edit.php)
 if (isset($_GET['id'])) {
     // override $post above, assign values for keys
     // because in the form, i used $post to display information about current post need to edit
@@ -193,6 +204,7 @@ if (isset($_GET['id'])) {
     $_POST[TAG_ID_PROPERTY] = array_column($tags_in_a_post, 'id');
 }
 
+// edit post (dashboard/posts/index.php, dashboard/posts/edit.php)
 if (isset($_POST['btn-edit-post'])) {
     postValidation($_POST, $errors);
     // img is required when user creates a post
@@ -208,6 +220,8 @@ if (isset($_POST['btn-edit-post'])) {
 
         updateTag(POST_TAG_TABLE, $_POST['id'], $new_tags_id);
         unset($_POST['id'], $_POST['btn-edit-post'], $_POST[TAG_ID_PROPERTY]);
+        
+        $_POST[SLUG] = post_slug($_POST[TITLE_PROPERTY]);
         update(POST_TABLE, $id, $_POST);
   
         echo ("<script>location.href = '../../dashboard/posts';</script>");
@@ -216,6 +230,7 @@ if (isset($_POST['btn-edit-post'])) {
     }
 }
 
+// delete post (dashboard/posts/index.php)
 if(isset($_POST['btn-delete-post'])){
     delete(POST_TABLE, $_POST['post-id']);
     echo "<meta http-equiv='refresh' content='0'>";

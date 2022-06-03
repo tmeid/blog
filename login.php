@@ -1,15 +1,15 @@
 <?php
-    include 'path.php';
-    require 'app/controllers/users.php';
-    if (isset($_SESSION['canAccess'])) {
-        echo ("<script>location.href = 'dashboard';</script>");
-    }
+include 'path.php';
+require 'app/controllers/users.php';
+if (isset($_SESSION['canAccess'])) {
+    echo ("<script>location.href = 'dashboard';</script>");
+}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon_io/favicon-32x32.png">
@@ -21,7 +21,6 @@
 </head>
 
 <body>
-
     <main>
         <div class="container">
             <form action="login.php" method="post" class='login-form'>

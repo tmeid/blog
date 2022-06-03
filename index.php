@@ -1,11 +1,12 @@
 <?php
     require 'app/database/db.php';
     $tags = selectAll('tag');
+    $posts = selectAll('post', ['published' => 1]);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
     <head>
-        <meta charset="UTF-8">
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon_io/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon_io/favicon-32x32.png">
@@ -20,48 +21,19 @@
             <div class="container">
                 <div class="wrap">
                     <div class="left-side">
-                        <article>
-                            <a href="#"><img src="assets/imgs/img.png" alt="#"></a>
-                            <div>
-                                <h2><a href="#">Tên bài viết</a></h2>
-                                <p>dd-mm-yy</p>
-                                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-                            </div>
-                            
-                        </article>
-                        <article>
-                            <a href="#"><img src="assets/imgs/img.png" alt="#"></a>
-                            <div>
-                                <h2><a href="#">Tên bài viết</a></h2>
-                                <p>dd-mm-yy</p>
-                                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-                            </div>
-                            
-                        </article>
-                        <article>
-                            <a href="#"><img src="assets/imgs/img.png" alt="#"></a>
-                            <div>
-                                <h2><a href="#">Tên bài viết</a></h2>
-                                <p>dd-mm-yy</p>
-                                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-                            </div>                       
-                        </article>
-                        <article>
-                            <a href="#"><img src="assets/imgs/img.png" alt="#"></a>
-                            <div>
-                                <h2><a href="#">Tên bài viết</a></h2>
-                                <p>dd-mm-yy</p>
-                                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-                            </div>                       
-                        </article>
-                        <article>
-                            <a href="#"><img src="assets/imgs/img.png" alt="#"></a>
-                            <div>
-                                <h2><a href="#">Tên bài viết</a></h2>
-                                <p>dd-mm-yy</p>
-                                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-                            </div>                      
-                        </article>
+                        <?php foreach($posts as $post):?>
+                            <article class="post-home">
+                                <a href="<?php echo 'article/' .$post['slug'] .'.html'?>">
+                                <img src="assets/imgs/img.png" alt="<?php echo $post['title']; ?>">
+                                </a>
+                                <div>
+                                    <h2><a href="<?php echo 'article/' .$post['slug'] .'.html'?>"><?php echo $post['title'] ?></a></h2>
+                                    <p>dd-mm-yy</p>
+                                    <p><?php echo $post['description'] ?></p>
+                                </div>
+                                
+                            </article>
+                        <?php endforeach; ?>
                     </div>
                     <div class="right-side">
                         <form action="#" class="search">

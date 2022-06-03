@@ -2,7 +2,14 @@
     session_start();
     require_once ROOT_PATH .'/app/database/db.php';
     require_once ROOT_PATH .'/app/assistance/validation.php';
-   
+    
+    define('USER_TABLE', 'user');
+    define('ADMIN_PROPERTY', 'admin');
+    define('USERNAME_PROPERTY', 'username');
+    define('EMAIL_PROPERTY', 'email');
+    define('PASSWORD_PROPERTY', 'password');
+
+    $users = selectAll(USER_TABLE);
     // defautl value
     $records = [
         'username' => '',
@@ -25,6 +32,7 @@
             $id = create('user', $_POST);
             // var_dump(selectOne('user', ['id' => $id]));
             // die();
+            echo("<script>location.href = 'index.php';</script>");
         }else{
             // form is unvalid: hold all input of user, improve user experience:
             $records['username'] = $_POST['username'];
@@ -66,4 +74,15 @@
         
     }
 
+    // soft delete user
+    if(isset($_POST['btn-delete-user'])){
+        update(USER_TABLE, $_POST['user-id'], [ADMIN_PROPERTY => 0]);
+        echo "<meta http-equiv='refresh' content='0'>";
+    }
+
+    // change permission
+    if(isset($_POST['change-permission'])){
+        update(USER_TABLE, $_POST[ADMIN_PROPERTY], [ADMIN_PROPERTY => $_POST['new-permission']]);
+        echo "<meta http-equiv='refresh' content='0'>";
+    }
 

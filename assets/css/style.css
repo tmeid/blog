@@ -73,22 +73,26 @@ h2 a{
 }
 .wrap{
     display: flex;
+    justify-content: space-between;
+}
+.left-side{
+    width: 80%
 }
 .right-side{
-    min-width: 200px;
+    width: 20%;
 }
 
 /* article  */
-article{
+.post-home{
     display: flex;
     margin-bottom: 2rem;
 }
-article > a{
+.post-home > a{
     max-width: 18%;
     display: inline-block;
     width: 18%;
 }
-article a img{
+.post-home a img{
     display: inline-block;
     max-width: 100%;
     width: 100%;
@@ -96,11 +100,11 @@ article a img{
     border-radius: 5px;
 
 }
-article div{
+.post-home div{
     max-width: 80%;
     padding-left: 15px;
 }
-article div p:first-of-type{
+.post-home div p:first-of-type{
     margin-bottom: 0.5rem;
 }
 
