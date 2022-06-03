@@ -356,8 +356,45 @@ tr:nth-child(even) {
     color: #fff;
     margin-bottom: 10px;
 }
-h3{
+.create-post h3{
     font-size: 150%;
     text-align: center;
+}
+
+/* article post  */
+.container-article{
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+.container-article h1{
+    font-size: 2rem;
+}
+.container-article img{
+    display: block;
+    margin: 0 auto;
+}
+.container-article h3{
+    font-size: 1.5rem;
+}
+
+/* relevant-post  */
+.relevant-post ul{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.relevant-post ul li{
+    width: 22%;
+}
+.relevant-post ul li a{
+    display: block;
+    width: 100%;
+}
+.relevant-post ul li img{
+    width: 100%;
+    display: block;
+    max-width: 100%;
+    
 }
   

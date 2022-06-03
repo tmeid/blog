@@ -8,7 +8,7 @@
 <html lang="vi">
 
 <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta charset=UTF-8>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="http://localhost/php/blog/dashboard/posts/">
     <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon_io/apple-touch-icon.png">
@@ -35,17 +35,29 @@
         </div>
     </header>
     <main>
-        <section class="container">
+        <section class="container-article">
             <article class="post">
-               <h1><?php echo $post['title']; ?></h1>
-                <div><?php echo $post['content']; ?></div>
-                <div>
-                    Tag: <? ?>
+                <h1><?php echo($post['title']) ?></h1>
+                <div><?php echo($post['content']) ?></div>
+                <div class="tags">
+                    Tag: 
+                        <?php foreach($tags_name as $tag_name): ?>
+                            <a href="#"><?php echo '#' .$tag_name['tag_name']; ?></a>
+                        <?php endforeach; ?>   
                 </div>
-                <div>
+                <div class="relevant-post">
                     <h3>Có thể bạn quan tâm: </h3>
+                    <!-- same category  -->
                     <ul>
-                        <li></li>
+                        <?php foreach($posts_same_category as $post): ?>
+                            <li>
+                                <a href="<?php echo '../../article/' .$post['slug'] .'.html' ?>"><img src="<?php echo '../../assets/imgs/' .$post['img'] ?>" alt="<?php echo $post['title'] ?>"></a>
+                                <h3><a href="<?php $post['img'] ?>">
+                                        <?php echo $post['title'] ?>
+                                    </a>
+                                </h3>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </article>

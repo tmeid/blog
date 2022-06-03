@@ -17,7 +17,7 @@ function executeQuery($sql, $data){
 }
 
 // select with many conditions, return records
-function selectAll($table, $condition = []){
+function selectAll($table, $condition = [], $limit = 0, $except = 0){
     global $connect;
     $sql = "SELECT * FROM $table";
 
@@ -39,6 +39,15 @@ function selectAll($table, $condition = []){
             }
             $i++;
         }
+        if($limit > 0){
+            $sql = $sql ." LIMIT ?";
+            $condition['limit'] = $limit;
+        }
+        if($except > 0){
+            $sql = $sql ." LIMIT ?";
+            $condition['limit'] = $limit;
+        }
+        
         $stm = executeQuery($sql, $condition);
         $records = $stm->get_result()->fetch_all(MYSQLI_ASSOC);
 

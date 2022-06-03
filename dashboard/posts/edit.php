@@ -17,7 +17,7 @@ require_once ROOT_PATH . '/app/controllers/tags.php';
 <html lang="vi">
 
 <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta charset=UTF-8>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_io/favicon-32x32.png">
@@ -112,7 +112,7 @@ require_once ROOT_PATH . '/app/controllers/tags.php';
                         <input type="file" name="img" id="img">
 
                         <label for="des">Mô tả</label>
-                        <textarea type="text" cols="30" rows="5" id="des" placeholder="Nhập mô tả" name="description" value="<?php echo $post[DESCRIPTION_PROPERTY] ?>"></textarea>
+                        <textarea cols="30" rows="5" id="des" tabindex="-1" name="description"><?php echo $post[DESCRIPTION_PROPERTY] ?></textarea>
 
                         <input type="hidden" name="author_id" value="<?php echo $_SESSION['admin-id']  ?>">
                         <label for="category" class="label-category">Chuyên mục</label>
@@ -132,7 +132,7 @@ require_once ROOT_PATH . '/app/controllers/tags.php';
                             <label for="<?php echo $tag[TAG_NAME_PROPERTY] ?>"><?php echo $tag[TAG_NAME_PROPERTY] ?></label>
                         <?php endforeach; ?>
                         <label for="content">Nội dung</label>
-                        <textarea name="content" id="content" cols="30" rows="10" class="post-content"><?php echo $post[CONTENT_PROPERTY] ?></textarea>
+                        <textarea name="content" id="content" cols="30" rows="10" class="post-content" tabindex="-1"><?php echo $post[CONTENT_PROPERTY] ?></textarea>
                         <input type="submit" value="Sửa bài viết" class="btn" name="btn-edit-post">
                 </form>
 
