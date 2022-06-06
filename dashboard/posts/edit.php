@@ -75,7 +75,7 @@ require_once ROOT_PATH . '/app/controllers/tags.php';
             selector: '.post-content', // note the comma at the end of the line!
             plugins: 'code',
             entity_encoding: 'raw',
-            plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
+            plugins: 'image autolink lists media table  advlist autolink lists link image charmap preview anchor pagebreak',
             toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents language undo redo  styles  bold italic  alignleft aligncenter alignright alignjustify outdent indent  image',
             toolbar_mode: 'floating',
             images_upload_url: 'upload.php',

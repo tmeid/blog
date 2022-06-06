@@ -17,7 +17,8 @@ function executeQuery($sql, $data){
 }
 
 // select with many conditions, return records
-function selectAll($table, $condition = [], $limit = 0, $except = 0){
+// optional: limit, execpt for some values
+function selectAll($table, $condition = [], $limit = 0, $except = [], $desc = false){
     global $connect;
     $sql = "SELECT * FROM $table";
 
@@ -28,7 +29,7 @@ function selectAll($table, $condition = [], $limit = 0, $except = 0){
        
     }else{
         //return a record that matches the below condition
-        // $sql = "SELECT * FROM $table WHERE admin = 1 AND username = 'thuy'";
+        // $sql = "SELECT * FROM $table WHERE admin = 1 AND username = 'abc'";
 
         $i = 0;
         foreach($condition as $key => $value){
@@ -39,14 +40,20 @@ function selectAll($table, $condition = [], $limit = 0, $except = 0){
             }
             $i++;
         }
+        if(!empty($except)){
+            foreach($except as $key => $value){
+                $sql = $sql . " AND $key != ?";
+                $condition[$key] = $value;
+            }
+        }
         if($limit > 0){
             $sql = $sql ." LIMIT ?";
             $condition['limit'] = $limit;
         }
-        if($except > 0){
-            $sql = $sql ." LIMIT ?";
-            $condition['limit'] = $limit;
+        if($desc === true){
+            $sql = $sql ." ORDER BY ID DESC";
         }
+        
         
         $stm = executeQuery($sql, $condition);
         $records = $stm->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -147,6 +154,7 @@ function delete($table, $id){
 // echo $id;
 // print_r(selectAll('users', $condition));
 
+
 function joinTables($table1, $table2, $table3, $id1, $id2a, $id2b, $id3, $key, $id){
     $sql = "SELECT $table3.$key
             FROM $table1
@@ -154,9 +162,38 @@ function joinTables($table1, $table2, $table3, $id1, $id2a, $id2b, $id3, $key, $
                 ON $table1.$id1 = $table2.$id2a
             JOIN $table3
                 ON $table2.$id2b = $table3.$id3
-            WHERE $table1.$id1 = ?";
+            WHERE $table1.$id1 = ?
+            ORDER BY $table3.id DESC";
     $stm = executeQuery($sql, ['id' => $id]);
     $records =  $stm->get_result()->fetch_all(MYSQLI_ASSOC);
     return $records;
+
+}
+
+function search($data){
+    $item = '%' .$data .'%';
+    $sql = "SELECT title, description, slug FROM post WHERE published = ? AND (title LIKE ? OR content LIKE ?) ORDER BY id DESC";
+    $stm = executeQuery($sql, ['published' => 1, 'title' => $item, 'content' => $item]);
+    $records =  $stm->get_result()->fetch_all(MYSQLI_ASSOC);
+    return $records;
+}
+
+// SELECT * FROM `post` p JOIN `category` c ON p.category_id = c.id WHERE c.id = 2 AND p.published = 1;
+function selectPostSameCategory($table1, $table2, $id1, $id2, $condition){
+    $sql = "SELECT t1.id, t1.title, t1.description, t1.slug, t1.img, t1.author_id, t1.created_at 
+                FROM $table1 t1 JOIN $table2 t2 ON t1.$id1 = t2.$id2";
+    $i = 0;
+    foreach($condition as $key => $value){
+        if($i === 0){
+            $sql = $sql . " WHERE t1.$key = ?";
+        }else{
+            $sql = $sql . " AND t2.$key = ?";
+        }
+        $i++;
+    }
+    $stm = executeQuery($sql, $condition);
+    $records = $stm->get_result()->fetch_all(MYSQLI_ASSOC);
+    return $records;
+   
 
 }

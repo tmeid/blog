@@ -53,7 +53,7 @@
                                     <form action="index.php" method="POST">
                                         <input type="text" name="edit-category" class="edit-btn" value="<?php echo $category[CATEGORY_NAME_PROPERTY] ?>">
                                         <input type="hidden" name="category-id" value="<?php echo $category['id'] ?>">
-                                        <input type="submit" name="edited-tag-btn" value="Oke">
+                                        <input type="submit" name="edited-category-btn" value="Oke">
                                         <button name="cancel-edit-btn" type="button" class="cancel-edit">&#128473;</button>
                                     </form>
                                 </td>
@@ -83,7 +83,7 @@
         </div>
 
     </main>
-    <script src="../assets/js/script.js"></script>
+    <script src="../../assets/js/script.js"></script>
 </body>
 
 </html>

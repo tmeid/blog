@@ -38,26 +38,31 @@
         <section class="container-article">
             <article class="post">
                 <h1><?php echo($post['title']) ?></h1>
+                <span class="time"><?php echo date('j/n/Y', strtotime($post['created_at']))  ?></span>
                 <div><?php echo($post['content']) ?></div>
                 <div class="tags">
                     Tag: 
-                        <?php foreach($tags_name as $tag_name): ?>
-                            <a href="#"><?php echo '#' .$tag_name['tag_name']; ?></a>
+                        <?php foreach($tags_same_post as $tag): ?>
+                            <a href="<?php echo '../../tag/' .$tag['slug']?>"><?php echo '#' .$tag['tag_name']; ?></a>
                         <?php endforeach; ?>   
                 </div>
                 <div class="relevant-post">
                     <h3>Có thể bạn quan tâm: </h3>
                     <!-- same category  -->
                     <ul>
-                        <?php foreach($posts_same_category as $post): ?>
-                            <li>
-                                <a href="<?php echo '../../article/' .$post['slug'] .'.html' ?>"><img src="<?php echo '../../assets/imgs/' .$post['img'] ?>" alt="<?php echo $post['title'] ?>"></a>
-                                <h3><a href="<?php $post['img'] ?>">
-                                        <?php echo $post['title'] ?>
-                                    </a>
-                                </h3>
-                            </li>
-                        <?php endforeach; ?>
+                        <?php if(empty($posts_same_category)): ?>
+                            <li>Chưa có bài liên quan</li>
+                        <?php else:
+                            foreach($posts_same_category as $post): ?>
+                                <li>
+                                    <a href="<?php echo '../../article/' .$post['slug'] .'.html' ?>"><img src="<?php echo '../../assets/imgs/' .$post['img'] ?>" alt="<?php echo $post['title'] ?>"></a>
+                                    <h3><a href="<?php $post['img'] ?>">
+                                            <?php echo $post['title'] ?>
+                                        </a>
+                                    </h3>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </article>

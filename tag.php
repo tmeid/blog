@@ -6,8 +6,15 @@
     $msg = 'Kết quả tìm kiếm cho: ';
     $tags = selectAll('tag');
     $categories = selectAll('category');
-    $posts = selectAll('post', ['published' => 1], 0, [], true);
 
+    $tag = selectAll('tag', ['slug' => $_GET['id']]);
+    //$tag is an array of arraay
+
+    if(!empty($tag)){
+        $tag_id = $tag[0]['id'];
+        $posts_same_tag = joinTables('tag', 'post_tag', 'post', 'id', 'tag_id', 'post_id', 'id', '*', $tag_id);
+    }
+    
     if(isset($_POST['search'])){
         $msg = $msg .$_POST['search'];
         $result_of_search = search($_POST['search']);
@@ -18,6 +25,7 @@
     <head>
         <meta charset=UTF-8>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <base href="http://localhost/php/blog/">
         <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon_io/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon_io/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon_io/favicon-16x16.png">
@@ -42,19 +50,23 @@
                                 </article>
                             <?php endforeach; ?>
                         <?php else : ?>
-                            <?php foreach($posts as $post):?>
-                                <article class="post-home">
-                                    <a href="<?php echo 'article/' .$post['slug'] .'.html'?>">
-                                    <img src="assets/imgs/img.png" alt="<?php echo $post['title']; ?>">
-                                    </a>
-                                    <div>
-                                        <h2><a href="<?php echo 'article/' .$post['slug'] .'.html'?>"><?php echo $post['title'] ?></a></h2>
-                                        <span class="time"><?php echo date('j/n/Y', strtotime($post['created_at']))  ?></span>
-                                        <p class="description"><?php echo $post['description'] ?></p>
-                                    </div>
-                                    
-                                </article>
-                            <?php endforeach; ?>
+                            <?php if(!empty($tag)): ?>
+                                <?php foreach($posts_same_tag as $post):?>
+                                    <article class="post-home">
+                                        <a href="<?php echo 'article/' .$post['slug'] .'.html'?>">
+                                        <img src="assets/imgs/img.png" alt="<?php echo $post['title']; ?>">
+                                        </a>
+                                        <div>
+                                            <h2><a href="<?php echo 'article/' .$post['slug'] .'.html'?>"><?php echo $post['title'] ?></a></h2>
+                                            <p><?php echo date('j/n/Y', strtotime($post['created_at']))  ?></p>
+                                            <p class="description"><?php echo $post['description'] ?></p>
+                                        </div>
+                                        
+                                    </article>
+                                <?php endforeach; ?> 
+                            <?php else: ?>
+                                <p>Rất tiếc, không tìm thấy trang bạn tìm. </p>
+                            <?php endif; ?>
                         <?php endif ?>
                     </div>
                     <div class="right-side">

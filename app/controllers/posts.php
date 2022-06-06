@@ -155,7 +155,7 @@ if (isset($_POST['btn-create-post'])) {
 
         $_POST[PUBLISHED_PROPERTY] = 1;
         // create a slug
-        $_POST[SLUG] = post_slug($_POST[TITLE_PROPERTY]);
+        $_POST[SLUG] = create_slug($_POST[TITLE_PROPERTY]);
 
         $new_post_id = create(POST_TABLE, $_POST);
 
@@ -221,7 +221,7 @@ if (isset($_POST['btn-edit-post'])) {
         updateTag(POST_TAG_TABLE, $_POST['id'], $new_tags_id);
         unset($_POST['id'], $_POST['btn-edit-post'], $_POST[TAG_ID_PROPERTY]);
         
-        $_POST[SLUG] = post_slug($_POST[TITLE_PROPERTY]);
+        $_POST[SLUG] = create_slug($_POST[TITLE_PROPERTY]);
         update(POST_TABLE, $id, $_POST);
   
         echo ("<script>location.href = '../../dashboard/posts';</script>");
@@ -245,3 +245,5 @@ if(isset($_GET[PUBLISHED_PROPERTY]) && isset($_GET['id'])){
     update(POST_TABLE, $_GET['id'], [PUBLISHED_PROPERTY => 1 - $_GET[PUBLISHED_PROPERTY]]);
     echo ("<script>location.href = '../../dashboard/posts';</script>");
 }
+
+
