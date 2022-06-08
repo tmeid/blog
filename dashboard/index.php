@@ -17,14 +17,14 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="../assets/favicon_io/site.webmanifest">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <title>Dashboard | tmeid's Blog</title>
 </head>
 
 <body>
     <header>
         <nav class="dashboard-nav">
-            <h1><a href="../index.html"><img src="../assets/imgs/tmeid-logo.jpg" alt="tmeid-logo">tmeid</a></h1>
+            <h1 class="logo"><a href="../index.html"><img src="../assets/imgs/tmeid-logo.jpg" alt="tmeid-logo">tmeid</a></h1>
             <h2>Dashboard</h2>
             <div class="admin">
                 <span><?php echo $_SESSION['username']  ?></span>

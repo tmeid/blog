@@ -191,9 +191,26 @@ function selectPostSameCategory($table1, $table2, $id1, $id2, $condition){
         }
         $i++;
     }
+    $sql .= " ORDER BY t1.id DESC";
     $stm = executeQuery($sql, $condition);
     $records = $stm->get_result()->fetch_all(MYSQLI_ASSOC);
     return $records;
    
 
+}
+
+function queryPosts($table, $limit = 0){
+    global $connect;
+    $sql = "SELECT id, title, description, slug, img, created_at FROM $table ORDER BY id DESC";
+    if($limit > 0){
+        $sql .= " LIMIT ?";
+        $stm = executeQuery($sql, ['limit' => $limit]);
+        $records = $stm->get_result()->fetch_all(MYSQLI_ASSOC);
+    }else{
+        $stm = $connect->prepare($sql);
+        $stm->execute();
+        $records = $stm->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+      
+    return $records;
 }

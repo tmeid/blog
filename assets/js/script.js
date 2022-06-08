@@ -39,3 +39,27 @@ tags.forEach(tag => {
 });
 
 
+// click icon search ==> display search bar
+let searchIcon = document.querySelector('.search-icon'),
+    searchBar = document.querySelector('.search-bar'),
+    popupMenu = document.querySelector('.popup-menu'),
+    hamburger = document.querySelector('.hamburger');
+
+searchIcon.addEventListener('click', function(){
+    searchBar.style.display = 'block'; 
+});
+
+// hamburger.addEventListener('click', function(){
+//     popupMenu.classList.toggle('open');
+// });
+
+hamburger.onclick = function(event){
+    event.stopPropagation();
+    popupMenu.classList.toggle('open');
+}
+// click outside: close a popup menu
+document.body.addEventListener('click', () => {
+    if(popupMenu.classList.contains('open')){
+        popupMenu.classList.remove('open');
+    }
+});

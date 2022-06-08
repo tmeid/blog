@@ -3,7 +3,6 @@
     require_once ROOT_PATH .'/app/controllers/users.php';
     if (!isset($_SESSION['canAccess']) || $_SESSION['board'] !== 1) {
         echo("<script>location.href = '../../login.php';</script>");
-            // header("location: ../../login.php");
     }
     
     require_once ROOT_PATH .'/app/database/admin.php';
@@ -19,7 +18,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="../../assets/favicon_io/site.webmanifest">
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
     <title>Dashboard | tmeid's Blog</title>
 </head>
 

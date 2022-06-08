@@ -6,9 +6,10 @@
     $msg = 'Kết quả tìm kiếm cho: ';
     $tags = selectAll('tag');
     $categories = selectAll('category');
-    $posts = selectAll('post', ['published' => 1], 0, [], true);
+    // $posts = selectAll('post', ['published' => 1], 0, [], true);
 
-    if(isset($_POST['search'])){
+    $posts = queryPosts('post');
+    if(!empty($_POST['search'])){
         $msg = $msg .$_POST['search'];
         $result_of_search = search($_POST['search']);
     }
@@ -18,11 +19,12 @@
     <head>
         <meta charset=UTF-8>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+        <link rel="stylesheet" href="assets/css/query-home.css" type="text/css">
         <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon_io/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon_io/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon_io/favicon-16x16.png">
-        <link rel="manifest" href="assets/favicon_io/site.webmanifest">
-        <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+        <link rel="manifest" href="assets/favicon_io/site.webmanifest">    
         <title>tmeid's Blog</title>
     </head>
     <body>

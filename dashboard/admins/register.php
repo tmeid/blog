@@ -19,8 +19,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="../../assets/favicon_io/site.webmanifest">
-    <link rel="stylesheet" href="../../assets/css/style.css" type="text/css">
-    <link rel="stylesheet" href="../../assets/css/login.css" type="text/css">
+    <link rel="stylesheet" href="../../assets/css/dashboard.css" type="text/css">
     <title>Tạo thêm admin| tmeid's Blog</title>
 </head>
 

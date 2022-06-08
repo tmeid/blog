@@ -20,8 +20,7 @@ require_once ROOT_PATH . '/app/controllers/tags.php';
     <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="../../assets/favicon_io/site.webmanifest">
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/login.css" type="text/css">
+    <link rel="stylesheet" href="../../assets/css/dashboard.css" type="text/css">
     <script src="https://cdn.tiny.cloud/1/n4xefeurkjusm2nc16n44s8wr6x8sdj5a6ahkouj6p7z1bg1/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <title>Dashboard | tmeid's Blog</title>
     <script>
