@@ -1,4 +1,4 @@
-<form action="#" class="search" method="POST">
+<form action="#" class="search" method="GET">
     <input type="text" placeholder="Tìm kiếm..." name="search">
     <!-- <input type="search" name="search" placeholder="&#128270;"> -->
 </form>
@@ -20,7 +20,7 @@
         <img src="assets/imgs/tmeid-logo.jpg" alt="ten-blog">
     </div>
     <p>Xin chào mình là Diễm Thúy.</p><br>
-    <p>Nhận thấy sự khó khăn của việc tự học lập trình, mình viết trang này với mục đích tổng hợp và chia sẻ các kiến thức nền tảng cơ bản.</p><br>
-    <p>Hi vọng trang web sẽ hữu ích cho các bạn trái ngành có niềm yêu thích với lập trình (như mình) ^^ </p><br>
+    <p>Nhận thấy sự khó khăn của việc tự học lập trình của các bạn trái ngành, mình viết trang này với mục đích tổng hợp và chia sẻ các kiến thức nền tảng cơ bản.</p><br>
+    <p>Hi vọng sẽ hữu ích ^^</p><br>
     <p><a href="about-me.html">Đọc thêm về mình và blog tại đây.</a></p>
 </div>

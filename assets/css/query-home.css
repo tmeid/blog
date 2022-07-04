@@ -1,9 +1,3 @@
-@media screen and (max-width: 1200px){
-    
-}
-@media screen and (max-width: 1024px){
-    
-}
 @media screen and (max-width: 950px){
     .container{
         max-width: 720px;
@@ -16,7 +10,7 @@
 @media screen and (max-width: 768px){
     h2 a {
         color: #1d2b4b;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     .post-home {
         margin-bottom: 1rem;
@@ -50,6 +44,10 @@
     
     .left-side {
         width: 100%;
+        padding-bottom: 1.5rem;
+    }
+    .pagination a {
+        padding: 4px 8px;
     }
     main {
         padding: 2.7rem 0;

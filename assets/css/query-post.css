@@ -13,9 +13,7 @@
     }
     
 }  
-@media screen and (max-width: 768px){
 
-}
 @media screen and (max-width: 700px){
     .container{
         max-width: 600px;
@@ -43,6 +41,9 @@
     .right-side{
         width: 100%;
     }
+    .article-page-search {
+        padding-left: 0;
+    }
     .search input[type="text"], .login-form input {
         display: none;
     }
@@ -50,6 +51,11 @@
     
     .left-side {
         width: 100%;
+    }
+
+    .brief > div img{
+        width: 30%;
+        max-width: 30%;
     }
     
 }
@@ -64,6 +70,9 @@
     }
     .post h1 {
         font-size: 1.7rem;
+    }
+    .relevant-post > h3 {
+        font-size: 1.3rem;
     }
     
 }

@@ -11,6 +11,5 @@ $category_id = $post['category_id'];
 $tags_same_post = joinTables('post', 'post_tag', 'tag', 'id', 'post_id', 'tag_id', 'id', '*', $post_id);
 
 // get the posts in the same category
-$posts_same_category = selectAll('post', ['category_id' => $category_id], 4, ['id' => $post_id]);
+$posts_same_category = selectAll('post', ['category_id' => $category_id], 4, ['id' => $post_id, 'published' => 0]);
 
-// pagination: build later

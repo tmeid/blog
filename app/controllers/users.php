@@ -2,6 +2,7 @@
     session_start();
     require_once ROOT_PATH .'/app/database/db.php';
     require_once ROOT_PATH .'/app/assistance/validation.php';
+    require_once ROOT_PATH .'/app/controllers/bootstrap.php';
     
     define('USER_TABLE', 'user');
     define('ADMIN_PROPERTY', 'admin');

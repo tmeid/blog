@@ -2,6 +2,7 @@
     require_once ROOT_PATH .'/app/database/db.php';
     require_once ROOT_PATH .'/app/assistance/validation.php';
     require_once ROOT_PATH .'/app/assistance/slug.php';
+    require_once ROOT_PATH .'/app/controllers/bootstrap.php';
 
     define('TAG_TABLE', 'tag');
     define('TAG_NAME_PROPERTY', 'tag_name');

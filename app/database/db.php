@@ -129,51 +129,47 @@ function update($table, $id, $data){
     return $stm->affected_rows;
 }
 
-// $condition = [
-//     'admin' => 1,
-//     'username' => 'test3',
-//     'email' => 'test1@gmail.com',
-//     'password' => '123'
-// ];
 
 function delete($table, $id){
-    global $connect;
     // $sql = "DELETE FROM $table WHERE id = ?"
     $sql = "DELETE FROM $table WHERE id = ?";
-
-    // $stm = $connect->prepare($sql);
-    // $stm->bind_param('i', $id);
-    // $stm->execute();
 
     $stm = executeQuery($sql, ['id' => $id]);
     return $stm->affected_rows;
 }
 
-// $id = create('users', $condition);
-// $id = delete('users', 2);
-// echo $id;
-// print_r(selectAll('users', $condition));
 
-
-function joinTables($table1, $table2, $table3, $id1, $id2a, $id2b, $id3, $key, $id){
+function joinTables($table1, $table2, $table3, $id1, $id2a, $id2b, $id3, $key, $id, $published = ''){
+    $data = [];
     $sql = "SELECT $table3.$key
             FROM $table1
             JOIN $table2
                 ON $table1.$id1 = $table2.$id2a
             JOIN $table3
                 ON $table2.$id2b = $table3.$id3
-            WHERE $table1.$id1 = ?
-            ORDER BY $table3.id DESC";
-    $stm = executeQuery($sql, ['id' => $id]);
+            WHERE $table1.$id1 = ?";
+    // query posts same tag (published property = 1)
+    // tag.php
+    $data['id'] = $id;
+    if($published !== ''){
+        $sql .= " AND $table3.published = ?";
+        $data['published'] = 1;
+    }
+    $sql .= " ORDER BY $table3.id DESC";
+    $stm = executeQuery($sql, $data);
     $records =  $stm->get_result()->fetch_all(MYSQLI_ASSOC);
     return $records;
 
 }
 
-function search($data){
-    $item = '%' .$data .'%';
-    $sql = "SELECT title, description, slug FROM post WHERE published = ? AND (title LIKE ? OR content LIKE ?) ORDER BY id DESC";
-    $stm = executeQuery($sql, ['published' => 1, 'title' => $item, 'content' => $item]);
+function search($search_in_slug, $search_in_others){
+    $search_in_slug = '%' . $search_in_slug .'%';
+    $search_in_others = '%' . $search_in_others .'%';
+    $sql = "SELECT title, description, slug FROM post WHERE published = ? 
+                AND (slug LIKE ? OR title LIKE ? OR description LIKE ?) ORDER BY id DESC";
+  
+    $stm = executeQuery($sql, ['published' => 1, 'slug' => $search_in_slug, 'title' => $search_in_others, 'des' => $search_in_others]);
+   
     $records =  $stm->get_result()->fetch_all(MYSQLI_ASSOC);
     return $records;
 }
@@ -199,18 +195,27 @@ function selectPostSameCategory($table1, $table2, $id1, $id2, $condition){
 
 }
 
-function queryPosts($table, $limit = 0){
+function queryPosts($table, $start = 0, $limit = 0){
     global $connect;
-    $sql = "SELECT id, title, description, slug, img, created_at FROM $table ORDER BY id DESC";
+    $sql = "SELECT id, title, description, slug, img, created_at FROM $table WHERE published = ? ORDER BY id DESC";
     if($limit > 0){
-        $sql .= " LIMIT ?";
-        $stm = executeQuery($sql, ['limit' => $limit]);
-        $records = $stm->get_result()->fetch_all(MYSQLI_ASSOC);
-    }else{
-        $stm = $connect->prepare($sql);
-        $stm->execute();
-        $records = $stm->get_result()->fetch_all(MYSQLI_ASSOC);
+        $sql .= " LIMIT ?, ?";
     }
+    $stm = executeQuery($sql, ['published' => 1, 'start' => $start, 'limit' => $limit]);
+    $records = $stm->get_result()->fetch_all(MYSQLI_ASSOC);
       
     return $records;
+}
+
+function countPosts($table){
+    global $connect;
+    $sql = "SELECT count(id) as 'rows' FROM $table";
+    $stm = $connect->prepare($sql);
+    $stm->execute();
+    $records = $stm->get_result()->fetch_assoc();
+
+    return $records['rows'];
+
+ 
+    
 }

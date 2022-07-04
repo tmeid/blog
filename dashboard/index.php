@@ -1,11 +1,11 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['canAccess'])) {
-        header("location: ../login.php");
-    }
-    include_once '../path.php';
-    require ROOT_PATH . '/app/database/admin.php';
-    require ROOT_PATH . '/app/controllers/tags.php';
+session_start();
+if (!isset($_SESSION['canAccess'])) {
+    header("location: ../login.php");
+}
+include_once '../path.php';
+require ROOT_PATH . '/app/database/admin.php';
+require ROOT_PATH . '/app/controllers/tags.php';
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -30,6 +30,23 @@
                 <span><?php echo $_SESSION['username']  ?></span>
                 <span><a href="../logout.php">Thoát</a></span>
             </div>
+
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </nav>
+        <nav class="popup-menu">
+            <ul>
+                <li><a href="index.php">Quản lý tag</a></li>
+                <li><a href="categories">Quản lý chuyên mục</a></li>
+                <li><a href="posts">Quản lý bài viết</a></li>
+                <?php if ($_SESSION['board'] === OWNER) : ?>
+                    <li><a href="admins">Quản lý admin</a></li>
+                <?php endif ?>
+            </ul>
+
         </nav>
     </header>
     <main>
@@ -70,6 +87,7 @@
                                 <td class="delete">
                                     <form action="index.php" method="POST">
                                         <input type="hidden" value="<?php echo $tag['id'] ?>" name="tag-id">
+                                        <input type="hidden" value="<?php echo $_SESSION['_token'] ?>" name="_token">
                                         <input type="submit" value="Xóa" name="delete-btn" class="delete-btn">
                                     </form>
                                 </td>
@@ -92,7 +110,7 @@
         </div>
 
     </main>
-    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
 </body>
 
 </html>

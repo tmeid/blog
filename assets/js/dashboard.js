@@ -1,4 +1,3 @@
-
 let tagForm,
     previousTd,
     editBtns = document.querySelectorAll('.edit'),
@@ -25,30 +24,10 @@ cancelEditBtns.forEach(cancelEditBtn => {
         displayForm(tagForm, "none");
     });
 });
-// cancelEditBtn.addEventListener('click', function(){
-//     displayForm(tagForm, "hidden");
-// });
-
-//random fontsize, fontweight text
-let tags = document.querySelectorAll('.tag'),
-    minFontSize = 10,
-    maxFontSize = 35;
-
-tags.forEach(tag => {
-    tag.style.fontSize = Math.floor(Math.random() * (maxFontSize - minFontSize + 1)) + minFontSize + 'px';
-});
 
 // click icon search ==> display search bar
-let searchIcon = document.querySelector('.search-icon'),
-    searchBar = document.querySelector('.search-bar'),
-    popupMenu = document.querySelector('.popup-menu'),
+let popupMenu = document.querySelector('.popup-menu'),
     hamburger = document.querySelector('.hamburger');
-
-if (searchIcon != null) {
-    searchIcon.addEventListener('click', function () {
-        searchBar.style.display = 'block';
-    });
-}
 
 
 // hamburger.addEventListener('click', function(){
@@ -68,9 +47,3 @@ document.body.addEventListener('click', () => {
         popupMenu.classList.remove('open');
     }
 });
-
-
-
-
-
-

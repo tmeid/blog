@@ -5,6 +5,7 @@ require_once ROOT_PATH . '/app/assistance/validation.php';
 require_once ROOT_PATH . '/app/controllers/tags.php';
 require_once ROOT_PATH . '/app/assistance/postValidation.php';
 require_once ROOT_PATH . '/app/assistance/slug.php';
+require_once ROOT_PATH .'/app/controllers/bootstrap.php';
 
 // tables' names, properties of those tables
 define('POST_TABLE', 'post');
@@ -166,7 +167,7 @@ if (isset($_POST['btn-create-post'])) {
                 TAG_ID_PROPERTY => $tag_id
             ]);
         }
-        echo ("<script>location.href = '../../dashboard/posts';</script>");
+        echo ("<script>location.href = 'dashboard/posts';</script>");
         // header('location: ../../dashboard/posts');
     } else {
         holdValues($post, $_POST);
@@ -224,7 +225,7 @@ if (isset($_POST['btn-edit-post'])) {
         $_POST[SLUG] = create_slug($_POST[TITLE_PROPERTY]);
         update(POST_TABLE, $id, $_POST);
   
-        echo ("<script>location.href = '../../dashboard/posts';</script>");
+        echo ("<script>location.href = 'index.php';</script>");
     } else {
         holdValues($post, $_POST, 'id');
     }
@@ -243,7 +244,7 @@ if(isset($_GET[PUBLISHED_PROPERTY]) && isset($_GET['id'])){
     // if current value = 1 ==> click ==> value will convert to 0 (1 - 1 = 0)
     // if current value = 0 ==> click ==> value will convert to 1 (1 - 0 = 0)
     update(POST_TABLE, $_GET['id'], [PUBLISHED_PROPERTY => 1 - $_GET[PUBLISHED_PROPERTY]]);
-    echo ("<script>location.href = '../../dashboard/posts';</script>");
+    echo ("<script>location.href = 'dashboard/posts';</script>");
 }
 
 

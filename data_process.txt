@@ -1,0 +1,51 @@
+<?php
+include_once 'app/database/db.php';
+include_once 'app/assistance/slug.php';
+define("LIMIT", 10);
+
+if(isset($_POST['search']) && isset($_POST['current_page'])){
+    $start;
+    $result = array();
+    // pagnigation
+    if($_POST['current_page'] > 1){
+        $current_page = $_POST['current_page'];
+        // in a current page: $start is the order of post will appear first
+        // minus 1 because $start is offset property in sql statement
+        // limit 4, 2: start with the 5th post, limit 2
+        $start = ($current_page - 1) * LIMIT;
+
+    }else{
+        $start = 0;
+    }
+
+    // user has searched
+    if($_POST['search'] !== ''){
+        $search = $_POST['search'];
+        //search in slug property (remove the accent), replace all empty charater to %
+        // ex: xin chào ==> xin%chao
+        $search_slug = replace_character(remove_accent($search), '%');
+        // keep the accent, replace all empty charater to %
+        $search_txt = replace_character(remove_special_char($str), '%');
+
+        $result = queryPosts('post', $start, LIMIT);
+    }else if($_POST['tag'] !== ''){
+        // $current_tag = selectAll('tag', ['slug' => $_POST['tag']]);
+        // if(!empty($tag)){
+        //     $tag_id = $current_tag[0]['id'];
+        //     $result = joinTables('tag', 'post_tag', 'post', 'id', 'tag_id', 'post_id', 'id', '*', $tag_id, $start, LIMIT);
+        // }
+    }
+    else{
+        //display posts
+        $result = queryPosts('post', $start, LIMIT);
+        
+    }
+
+    $output = array(
+		'data' => $result
+    );
+    
+    echo json_encode($output);
+
+}
+

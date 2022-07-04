@@ -20,7 +20,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="../../assets/favicon_io/site.webmanifest">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
-    <title>Dashboard | tmeid's Blog</title>
+    <title>Dashboard | Water that seed</title>
 </head>
 
 <body>
@@ -33,7 +33,7 @@
             <section class="dashboard-data">
                 <div>
                     <h4 class="title-manage">Quản lý bài viết</h4>
-                    <a href="create.php" class="btn-create">Thêm bài viết</a>
+                    <a href="../../create.php" class="btn-create">Thêm bài viết</a>
                     <table class="tags">
                         <tr>
                             <th>STT</th>
@@ -46,14 +46,15 @@
                                 <td><?php echo $i + 1 ?></td>
                                 <td class="input-tag"><?php echo $post[TITLE_PROPERTY] ?></td>
                                 <td>
-                                    <a href="edit.php?id=<?php echo $post['id'] .'&published=' .$post[PUBLISHED_PROPERTY]?>">
+                                    <a href="../../edit.php?id=<?php echo $post['id'] .'&published=' .$post[PUBLISHED_PROPERTY]?>">
                                         <?php echo $post[PUBLISHED_PROPERTY] == 1 ?  'thu hồi' : 'xuất bản' ?>
                                     </a> 
                                 </td>
-                                <td class="edit"><a href="edit.php?id=<?php echo $post['id'] ?>">Sửa</a></td>
+                                <td class="edit"><a href="../../edit.php?id=<?php echo $post['id'] ?>">Sửa</a></td>
                                 <td class="delete">
                                     <form action="index.php" method="POST">
                                         <input type="hidden" value="<?php echo $post['id'] ?>" name="post-id">
+                                        <input type="hidden" value="<?php echo $_SESSION['_token'] ?>" name="_token">
                                         <input type="submit" value="Xóa" name="btn-delete-post" class="delete-btn">
                                     </form>
                                 </td>
@@ -67,5 +68,5 @@
             </section>
         </div>
     </main>
-    <script src="../../assets/js/script.js"></script>
+    <script src="../../assets/js/dashboard.js"></script>
 </body>

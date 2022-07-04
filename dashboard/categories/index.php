@@ -18,19 +18,12 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="../../assets/favicon_io/site.webmanifest">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
-    <title>Dashboard | tmeid's Blog</title>
+    <title>Dashboard | Water that seed</title>
 </head>
 
 <body>
     <header>
-        <nav class="dashboard-nav">
-            <h1 class="logo"><a href="../../index.html"><img src="../../assets/imgs/tmeid-logo.jpg" alt="tmeid-logo">tmeid</a></h1>
-            <h2>Dashboard</h2>
-            <div class="admin">
-                <span><?php echo $_SESSION['username']  ?></span>
-                <span><a href="../../logout.php">Thoát</a></span>
-            </div>
-        </nav>
+        <?php include ROOT_PATH .'/app/blade/header_dashboard.php' ?>
     </header>
     <main>
         <div class="dashboard">
@@ -61,6 +54,7 @@
                                 <td class="delete">
                                     <form action="index.php" method="POST">
                                         <input type="hidden" value="<?php echo $category['id'] ?>" name="category-id">
+                                        <input type="hidden" value="<?php echo $_SESSION['_token'] ?>" name="_token">
                                         <input type="submit" value="Xóa" name="delete-btn" class="delete-btn">
                                     </form>
                                 </td>
@@ -83,7 +77,7 @@
         </div>
 
     </main>
-    <script src="../../assets/js/script.js"></script>
+    <script src="../../assets/js/dashboard.js"></script>
 </body>
 
 </html>
